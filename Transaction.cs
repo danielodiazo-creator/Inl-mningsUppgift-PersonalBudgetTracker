@@ -30,9 +30,9 @@ ShowInfo() – skriver ut all information om transaktionen.
 
         public void ShowInfo()
         {
-            Console.WriteLine($"-------------------------------------------------");
+            Console.WriteLine($"-----------------------------------------------------------------------------------------------------------");
             Console.WriteLine($"{description} | {amount} kr | {category} | {date}");
-            Console.WriteLine($"-------------------------------------------------");
+            Console.WriteLine($"-----------------------------------------------------------------------------------------------------------");
         }
     }
 }

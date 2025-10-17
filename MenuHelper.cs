@@ -25,12 +25,13 @@ namespace InlämningsUppgift
             bool fortsätt = true;
             while (true)
             {
+                Console.WriteLine("-----------MENU-----------------");
                 Console.WriteLine("Välj alternativet som passar dig");
                 Console.WriteLine();
                 Console.WriteLine("1: Lägg till transaktion"); 
                 Console.WriteLine("2: Visa alla transaktioner");
                 Console.WriteLine("3: Visa total balans");
-                Console.WriteLine("4:  Ta bort transaktion");
+                Console.WriteLine("4: Ta bort transaktion");
                 Console.WriteLine("5: Avsluta programmet");
                 Console.WriteLine();
 
@@ -42,6 +43,7 @@ namespace InlämningsUppgift
                     case 2: budget1.ShowAll(); break;
                     case 3: budget1.CalculateBalance(); break;
                     case 4: budget1.DeleteTransaction(); break;
+                    case 5: break;
                 }
                
 
