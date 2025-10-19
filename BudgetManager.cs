@@ -89,7 +89,7 @@ namespace InlämningsUppgift
             Console.WriteLine("Välj vilken transaktion som ska tas bort");
             int SvarTransaktionBort = Convert.ToInt32(Console.ReadLine());
 
-            if(SvarTransaktionBort > 0 && SvarTransaktionBort < transactions.Count)
+            if(SvarTransaktionBort >= 0 && SvarTransaktionBort < transactions.Count)
             {
                transactions.RemoveAt(SvarTransaktionBort);
             }
@@ -126,10 +126,32 @@ namespace InlämningsUppgift
         public void VisaStatistik()
         {
             int antalTransaktioner = 0;
+            decimal totalInkomst = 0;
+            decimal totalUtgift = 0;
 
+            foreach(var transaction in transactions)
+            {
+                if(transaction.amount > 0)
+                {
+                    
+                    
+                    totalInkomst = totalInkomst + transaction.amount;
+                    
 
+                }
+                else if(transaction.amount < 0)
+                {
+                    totalUtgift = totalUtgift - transaction.amount;
+                }
 
-
+                
+            }
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Din totala Inkosmt är " + totalInkomst);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Din totala utgift är " + totalUtgift);
+            Console.ResetColor();
+            Console.WriteLine("Dina totala antal transaktioner är " + transactions.Count);
 
         }
             
