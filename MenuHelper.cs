@@ -23,7 +23,7 @@ namespace InlämningsUppgift
         public void Menu()
         {
             bool fortsätt = true;
-            while (true)
+            while (fortsätt)
             {
                 Console.WriteLine("-----------MENU-----------------");
                 Console.WriteLine("Välj alternativet som passar dig");
@@ -47,7 +47,8 @@ namespace InlämningsUppgift
                     case 4: budget1.DeleteTransaction(); break;
                     case 5: budget1.SearchByCategory(); break;
                     case 6: budget1.VisaStatistik(); break;
-                    case 7: break;
+                    case 7: Console.WriteLine("Programmet avslutas");
+                        fortsätt = false;  break;
                 }
                
 

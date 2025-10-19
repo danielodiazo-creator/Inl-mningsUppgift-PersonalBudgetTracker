@@ -9,8 +9,11 @@ namespace InlämningsUppgift
 {
     public class BudgetManager
     {
-        public List<Transaction> transactions = new List<Transaction>();
-        Dictionary<string, decimal> SearchCategory = new Dictionary<string, decimal>();
+        public List<Transaction> transactions = new List<Transaction>();  //Här skapar jag en en Lista av klassen Transaction
+                                                                          //för att få tillgång till deras properties och kunna spara olika värden i dem.
+
+        Dictionary<string, decimal> SearchCategory = new Dictionary<string, decimal>(); //Här skapar jag en dictionary som ska hjälpa oss att visa
+                                                                                        //värden per category eller typ
 
         public void AddTransaction() // lägger till en ny post.
         {
@@ -19,8 +22,23 @@ namespace InlämningsUppgift
             Console.WriteLine("Ange beskrivningen av transaktion");
             transaction.description = Console.ReadLine();
 
-            Console.WriteLine("Ange summan av tranktionen");
-            transaction.amount = Convert.ToDecimal(Console.ReadLine());
+            bool fortsätt = false;
+            while (!fortsätt)
+            {
+                Console.WriteLine("Ange summan av tranktionen");
+                string summaAvTransaktion = Console.ReadLine();
+                if(decimal.TryParse(summaAvTransaktion, out transaction.amount))
+                {
+                    fortsätt = true;
+                }
+                else
+                {
+                    Console.WriteLine("Skriv antal summa");
+                }
+                
+
+            }
+           
 
 
 
@@ -40,9 +58,9 @@ namespace InlämningsUppgift
         
         public void ShowAll() // visar alla transaktioner.
         {
-            foreach(var transaction in transactions)
+            foreach(var transaction in transactions) //För varje element i transactions ska visas följande kod:
             {         
-                if(transaction.amount > 0)
+                if(transaction.amount > 0) 
                 {
                    Console.ForegroundColor = ConsoleColor.Green;
                 }
@@ -58,7 +76,7 @@ namespace InlämningsUppgift
 
             Console.ResetColor();
 
-            Console.WriteLine("Antal transaktioner: " + transactions.Count);
+            Console.WriteLine("Antal transaktioner: " + transactions.Count); 
             Console.WriteLine();
 
         } 
