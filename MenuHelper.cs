@@ -32,7 +32,8 @@ namespace InlämningsUppgift
                 Console.WriteLine("2: Visa alla transaktioner");
                 Console.WriteLine("3: Visa total balans");
                 Console.WriteLine("4: Ta bort transaktion");
-                Console.WriteLine("5: Avsluta programmet");
+                Console.WriteLine("5: Sök efter categoy");
+                Console.WriteLine("6: Avsluta programmet");
                 Console.WriteLine();
 
                 int valdAlternativ = Convert.ToInt32(Console.ReadLine());
@@ -43,7 +44,8 @@ namespace InlämningsUppgift
                     case 2: budget1.ShowAll(); break;
                     case 3: budget1.CalculateBalance(); break;
                     case 4: budget1.DeleteTransaction(); break;
-                    case 5: break;
+                    case 5: budget1.SearchByCategory(); break;
+                    case 6: break;
                 }
                
 
