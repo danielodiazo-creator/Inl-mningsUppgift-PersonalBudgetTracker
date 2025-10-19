@@ -19,21 +19,36 @@ namespace InlämningsUppgift
         {
             Transaction transaction = new Transaction();
 
-            Console.WriteLine("Ange beskrivningen av transaktion");
-            transaction.description = Console.ReadLine();
+            bool TransactionDescription = false;
+            while (!TransactionDescription)
+            {
+                Console.WriteLine("Ange beskrivningen av transaktion");
+                string beskrivningAvTransaktion = Console.ReadLine().ToLower();
 
+                if (string.IsNullOrWhiteSpace(beskrivningAvTransaktion))                 
+                {                                                                        
+                    Console.WriteLine("Försök igen. Beskrivningen får inte vara töm");
+                }
+                else
+                {
+                    transaction.description = beskrivningAvTransaktion;
+                    TransactionDescription = true;
+                    
+                }
+            }
+            
             bool fortsätt = false;
-            while (!fortsätt)
+            while (!fortsätt)                                                   //Den här boolean ska upprepas så länge forstätt är falsk.
             {
                 Console.WriteLine("Ange summan av tranktionen");
-                string summaAvTransaktion = Console.ReadLine();
+                string summaAvTransaktion = Console.ReadLine().ToLower();
                 if(decimal.TryParse(summaAvTransaktion, out transaction.amount))
                 {
                     fortsätt = true;
                 }
                 else
                 {
-                    Console.WriteLine("Skriv antal summa");
+                    Console.WriteLine("Försök igen. Skriv ett antal");
                 }
                 
 
@@ -43,14 +58,14 @@ namespace InlämningsUppgift
 
 
             Console.WriteLine("Ange typ av transaktion");
-            transaction.category = Console.ReadLine();
+            transaction.category = Console.ReadLine().ToLower();
 
 
 
-            transaction.date = DateTime.Now.ToString();
+            transaction.date = DateTime.Now.ToString();                // På det här sättet indikerar vi det nuvarande datum
 
-            transactions.Add(transaction);
-            SearchCategory.Add(transaction.category, transaction.amount);
+            transactions.Add(transaction);                               //Den här är en Lista
+            SearchCategory.Add(transaction.category, transaction.amount);   //Den här är en Dicctionary. Det första värdet är Key. Det andra är value.
 
             Console.WriteLine();
         }
@@ -60,11 +75,11 @@ namespace InlämningsUppgift
         {
             foreach(var transaction in transactions) //För varje element i transactions ska visas följande kod:
             {         
-                if(transaction.amount > 0) 
+                if(transaction.amount > 0)               // Vi lägger till grön färg om vår transaktion är positiv
                 {
                    Console.ForegroundColor = ConsoleColor.Green;
                 }
-                else if(transaction.amount < 0)
+                else if(transaction.amount < 0)          // Vi lägger till Röd färg om vår transaktion är negativ
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                 }
@@ -107,9 +122,9 @@ namespace InlämningsUppgift
             Console.WriteLine("Välj vilken transaktion som ska tas bort");
             int SvarTransaktionBort = Convert.ToInt32(Console.ReadLine());
 
-            if(SvarTransaktionBort >= 0 && SvarTransaktionBort < transactions.Count)
+            if(SvarTransaktionBort >= 0 && SvarTransaktionBort < transactions.Count)  //Om det finns bland alternativen.
             {
-               transactions.RemoveAt(SvarTransaktionBort);
+               transactions.RemoveAt(SvarTransaktionBort);  //Här raderas transaktionen. 
             }
             else
             {
@@ -122,28 +137,43 @@ namespace InlämningsUppgift
 
         public void SearchByCategory()
         {
-            Console.WriteLine("Välj typ av transaktion");
-            string typAvTransaktion = Console.ReadLine();
-
-            if (SearchCategory.ContainsKey(typAvTransaktion))
+         
+            bool fortsätt = false;
+            while (!fortsätt)
             {
 
-                foreach (var element in SearchCategory)
-                {
-                    if (element.Key == typAvTransaktion)
-                    {
-                        Console.WriteLine("Transaktion Category: " + element.Value + " Transaktion: " + element.Key);
-                    }
+                Console.WriteLine("Välj typ av transaktion");
+                string typAvTransaktion = Console.ReadLine().ToLower();
 
+
+                if (SearchCategory.ContainsKey(typAvTransaktion)) //ContainsKey kan tolkas som "har". Om Dicionary har samma string eller namn
+                                                                  //raderas den från dicionary
+                {
+
+                    foreach (var element in SearchCategory)
+                    {
+                        if (element.Key == typAvTransaktion)     //Om den hittar samma element i dictionary ska det skrivas i consolen följande:
+                        {
+                            Console.WriteLine("Typ av transaktion: " + element.Key + " Transaktion: " + element.Value);
+                            fortsätt = true;
+                        }
+
+
+                    }
 
                 }
 
-            }
+                else
+                {
+                    Console.WriteLine("Transaktionen finns inte. Försök igen.");
+                    Console.WriteLine();
 
+                }
+            }
         }
         public void VisaStatistik()
         {
-            int antalTransaktioner = 0;
+            
             decimal totalInkomst = 0;
             decimal totalUtgift = 0;
 
@@ -153,13 +183,13 @@ namespace InlämningsUppgift
                 {
                     
                     
-                    totalInkomst = totalInkomst + transaction.amount;
+                    totalInkomst = totalInkomst + transaction.amount;    //Här summerar jag alla positivia transaktioner
                     
 
                 }
                 else if(transaction.amount < 0)
                 {
-                    totalUtgift = totalUtgift - transaction.amount;
+                    totalUtgift = totalUtgift - transaction.amount;      //Här resterar jag alla negativa transaktioner
                 }
 
                 

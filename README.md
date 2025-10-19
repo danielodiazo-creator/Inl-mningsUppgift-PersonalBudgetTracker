@@ -27,3 +27,9 @@ För mig personligen var det svårast att tänka logiskt och veta när en visst 
 AI för att kunna hjläpa mig förstå bättre logiken bakom det. Framförallt när det gäller for och foreach Looparna. Jag förstår logiken när jag väl 
 gör färdig övningarna men för mig är det lätt att glömma hur var det man gjorde dem. Så det känns som att jag behöver gå igenom dem igen för att
 inte glömma. 
+
+En sak som var också svårt för mig var att rita de uml och flödes diagrammerna. o_o¨
+
+
+Daniel Diaz Castro
+19-10-2025

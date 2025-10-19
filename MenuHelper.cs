@@ -8,20 +8,11 @@ namespace InlämningsUppgift
 {
     public class MenuHelper
     {
-        /*
-         * Programmet ska ha minst följande menyval:
- 1️⃣ ➕ Lägg till transaktion
- 2️⃣ 📋 Visa alla transaktioner
- 3️⃣ 💰 Visa total balans
- 4️⃣ 🗑️ Ta bort transaktion
- 5️⃣ 💾 Avsluta programmet
-
-(Bonus: skapa en extra meny för att visa transaktioner per kategori.)
-*/
+     
         BudgetManager budget1 = new BudgetManager();
         
-        public void Menu()
-        {
+        public void Menu()         // Här väljer man alternativet som bäst passar användaren med hjälp av en meny som leder till olika metoder
+        {                          //Denna metoden kommer användas i Main
             bool fortsätt = true;
             while (fortsätt)
             {
