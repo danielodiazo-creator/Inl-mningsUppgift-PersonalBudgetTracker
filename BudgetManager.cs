@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,59 +9,140 @@ namespace InlämningsUppgift
 {
     public class BudgetManager
     {
-        Transaction transaction1 = new Transaction();
-       
-        public void AddTransaction() // – lägger till en ny post.
+        public List<Transaction> transactions = new List<Transaction>();
+        Dictionary<string, decimal> SearchCategory = new Dictionary<string, decimal>();
+
+        public void AddTransaction() // lägger till en ny post.
         {
-            Console.WriteLine("Tryck [1] Mata in dina Inkomster");
-            Console.WriteLine("Tryck [2] Mata in dina utgifter");
-            int valdAlternativ = Convert.ToInt32(Console.ReadLine());
+            Transaction transaction = new Transaction();
 
-            switch (valdAlternativ)
-            {
-                case 1:
+            Console.WriteLine("Ange beskrivningen av transaktion");
+            transaction.description = Console.ReadLine();
 
-                    Console.WriteLine("Skriv in din inkomst från lönen");
-                    transaction1.Lön = Convert.ToDecimal(Console.ReadLine());
+            Console.WriteLine("Ange summan av tranktionen");
+            transaction.amount = Convert.ToDecimal(Console.ReadLine());
 
-                    Console.WriteLine("Skriv in dina andra inkomster");
-                    transaction1.AndraInkomst = Convert.ToDecimal(Console.ReadLine());
 
-                    transaction1.Inkomster = transaction1.Lön + transaction1.AndraInkomst;
-                    transaction1.Balance.Add(transaction1.Inkomster);
 
-                        break;
-                    
-            }
-        } 
-        public void ShowAll() //  – visar alla transaktioner.
+            Console.WriteLine("Ange typ av transaktion");
+            transaction.category = Console.ReadLine();
+
+
+
+            transaction.date = DateTime.Now.ToString();
+
+            transactions.Add(transaction);
+            SearchCategory.Add(transaction.category, transaction.amount);
+
+            Console.WriteLine();
+        }
+
+        
+        public void ShowAll() // visar alla transaktioner.
         {
-            for(int i = 0; i < transaction1.Balance.Count; i++) 
-            {
+            foreach(var transaction in transactions)
+            {         
+                if(transaction.amount > 0)
+                {
+                   Console.ForegroundColor = ConsoleColor.Green;
+                }
+                else if(transaction.amount < 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                }
 
-                Console.WriteLine($"Transaktion {i + 1}: {transaction1.Balance[i]} kr");
 
+                    transaction.ShowInfo();
+             
             }
-            
-            Console.WriteLine("Total antal transaktioner: " + transaction1.Balance.Count);
+
+            Console.ResetColor();
+
+            Console.WriteLine("Antal transaktioner: " + transactions.Count);
             Console.WriteLine();
 
         } 
-        public void CalculateBalance() // – räknar ut total balans.
+        public void CalculateBalance() // räknar ut total balans.
         {
             decimal balance = 0;
-            foreach (decimal item in transaction1.Balance)
+
+            foreach(var transaction in transactions)
             {
-                balance = balance + item;
-                
+                balance = balance + transaction.amount;
             }
 
-            Console.WriteLine(balance);
+            if (balance > 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+            }
+            else if (balance < 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Red; 
+            }
 
+            Console.WriteLine("Balance: " + balance);
+            Console.ResetColor();
+            Console.WriteLine();
         } 
-        public void DeleteTransaction() // – tar bort en post.
+        public void DeleteTransaction() // tar bort en post.
         {
+            Console.WriteLine("Välj vilken transaktion som ska tas bort");
+            int SvarTransaktionBort = Convert.ToInt32(Console.ReadLine());
+
+            if(SvarTransaktionBort > 0 && SvarTransaktionBort < transactions.Count)
+            {
+               transactions.RemoveAt(SvarTransaktionBort);
+            }
+            else
+            {
+                Console.WriteLine("Transaktionen kunde inte tas bort");
+            }
+            Console.WriteLine();
+        }
+
+
+
+        public void SearchByCategory()
+        {
+            Console.WriteLine("Välj typ av transaktion");
+            string typAvTransaktion = Console.ReadLine();
+
+            if (SearchCategory.ContainsKey(typAvTransaktion))
+            {
+
+                foreach (var element in SearchCategory)
+                {
+                    if (element.Key == typAvTransaktion)
+                    {
+                        Console.WriteLine("Transaktion Category: " + element.Value + " Transaktion: " + element.Key);
+                    }
+
+
+                }
+
+            }
 
         }
+        public void VisaStatistik()
+        {
+            int antalTransaktioner = 0;
+
+
+
+
+
+        }
+            
+
+
+
+
+
+
+            
+
+
+
+        
     }
 }
